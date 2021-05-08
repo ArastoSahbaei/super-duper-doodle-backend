@@ -6,7 +6,6 @@ import crypto from 'crypto'
 import bcrypt from 'bcrypt'
 import dotenv from 'dotenv'
 import Configurations from '../../configurations/Configurations.js'
-import ShoppingCartModel from '../models/ShoppingCart.model.js'
 import NewsLetterSubscriptionModel from '../models/NewsLetterSubscription.model.js'
 
 dotenv.config()
@@ -24,18 +23,6 @@ const testingAuthenticatedRoute = async (request, response) => {
 			})
 		}
 	})
-}
-
-const updateCart = async (request, response) => {
-	try {
-		const databaseResponse = await ShoppingCartModel.findByIdAndUpdate(request.body.cartId, {
-			products: request.body.products
-		},
-			{ new: true }).populate({ path: 'products' })
-		response.status(StatusCode.OK).send(databaseResponse)
-	} catch (error) {
-		response.status(StatusCode.INTERNAL_SERVER_ERROR).send({ message: error.message })
-	}
 }
 
 const login = async (request, response, next) => {
@@ -265,5 +252,4 @@ export default {
 	updatePassword,
 	forgotPassword,
 	resetPassword,
-	updateCart,
 }

@@ -7,10 +7,6 @@ import passport from 'passport'
 import Configuration from './configurations/Configurations.js'
 import Middlewares from './src/middlewares/Middlewares.js'
 import UserRoutes from './src/routes/User.routes.js'
-import ProductRoutes from './src/routes/Product.routes.js'
-import ProductCategoryRoutes from './src/routes/ProductCategory.routes.js'
-import ProductBrandRoutes from './src/routes/ProductBrand.routes.js'
-import ShoppingCartRoutes from './src/routes/ShoppingCart.routes.js'
 import NewsLetterSubscriptionRoutes from './src/routes/NewsLetterSubscription.routes.js'
 import passportConfig from './configurations/passport-config.js'
 
@@ -25,10 +21,6 @@ passportConfig.registerUserini()
 passportConfig.login()
 
 UserRoutes.routes(application)
-ProductRoutes.routes(application)
-ProductCategoryRoutes.routes(application)
-ProductBrandRoutes.routes(application)
-ShoppingCartRoutes.routes(application)
 NewsLetterSubscriptionRoutes.routes(application)
 
 application.use(Middlewares.notFound)

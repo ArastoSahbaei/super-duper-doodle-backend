@@ -13,8 +13,6 @@ const routes = application => {
 	application.post('/forgotpassword', UserController.forgotPassword)
 	application.put('/updatepassword', UserController.updatePassword)
 	application.put('/resetpassword', UserController.resetPassword)
-	application.put('/shoppingcart/add', UserController.updateCart)
-	application.put('/favouriteproducts', UserController.updateFavouriteProducts)
 }
 
 export default { routes }
