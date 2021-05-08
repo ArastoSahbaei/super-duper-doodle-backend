@@ -10,12 +10,6 @@
 		"deploy": "git push heroku master",
 		"XXXheroku-postbuild": "npm run install-frontend && npm run build"
 	},
-	"keywords": [
-		"RestAPI",
-		"Express",
-		"MongoDB",
-		"Mongoose"
-	],
 	"author": "Arasto Sahbaei (arasto.sahbaei@gmail.com)",
 	"license": "ISC",
 	"dependencies": {

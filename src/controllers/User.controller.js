@@ -38,21 +38,6 @@ const updateCart = async (request, response) => {
 	}
 }
 
-const updateFavouriteProducts = async (request, response) => {
-	try {
-		if (!request.body) { return response.status(StatusCode.BAD_REQUEST).send({ message: 'Empty values were sent' }) }
-		const databaseResponse = await UserModel.findByIdAndUpdate(request.body.userId, {
-			favouriteProducts: request.body.favouriteProducts,
-		}, { new: true }).populate('favouriteProducts')
-		response.status(StatusCode.OK).send(databaseResponse)
-	} catch (error) {
-		response.status(StatusCode.INTERNAL_SERVER_ERROR).send({
-			message: 'Error occured while trying to update values of the user with ID: ' + request.body.userId,
-			error: error.message
-		})
-	}
-}
-
 const login = async (request, response, next) => {
 	passport.authenticate('login', (error, users, info) => {
 		/* 	if (err) { console.error(`error ${err}`) } */
@@ -126,6 +111,7 @@ const getAllUsers = async (request, response) => {
 		response.status(StatusCode.INTERNAL_SERVER_ERROR).send({ message: error.message })
 	}
 }
+
 const getUserByID = async (request, response) => {
 	try {
 		const databaseResponse = await (await UserModel.findOne({ _id: request.params.userId })
@@ -280,5 +266,4 @@ export default {
 	forgotPassword,
 	resetPassword,
 	updateCart,
-	updateFavouriteProducts
 }

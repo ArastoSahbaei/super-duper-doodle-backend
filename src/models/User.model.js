@@ -34,25 +34,11 @@ const userSchema = Schema({
 		zipCode: String
 	}],
 	phone: String,
-	creditCard: {
-		method: String,
-		number: String
-	},
-	shoppingCart: [{
-		type: mongoose.Schema.Types.ObjectId,
-		ref: 'shoppingcart',
-		required: true
-	}],
 	newsLetterSubscription: [{
 		type: mongoose.Schema.Types.ObjectId,
 		ref: 'newslettersubscription',
 		required: true
-	}],
-	favouriteProducts: [{
-		type: mongoose.Schema.Types.ObjectId,
-		ref: 'product',
 	}]
-
 }, { timestamps: true, strict: true })
 
 
