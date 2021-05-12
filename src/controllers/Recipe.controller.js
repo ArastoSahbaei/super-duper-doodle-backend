@@ -1,31 +1,50 @@
-import recipeModel from '../models/Recipe.model.js'
+import RecipeModel from '../models/Recipe.model.js'
+import UserModel from '../models/User.model.js'
 
-const createRecipe = (req, res) => {
-	if (!req.body.title) { return res.status(400).send({ message: "Recipe title is required" }) }
+const createRecipe = async (request, response) => {
+	if (!request.body.title) { return response.status(400).send({ message: "Recipe title is required" }) }
 
-	const recipe = new recipeModel({
-		title: req.body.title || "untitled recipe",
-		duration: req.body.duration,
-		ingrediens: req.body.ingrediens,
-		description: req.body.description,
-		originCountry: req.body.originCountry,
-		language: req.body.language,
-		views: req.body.views
+	const recipe = new RecipeModel({
+		userId: request.body.userId,
+		title: request.body.title || "untitled recipe",
+		duration: request.body.duration,
+		ingrediens: request.body.ingrediens,
+		description: request.body.description,
+		originCountry: request.body.originCountry,
+		language: request.body.language,
+		views: request.body.views
 	})
 
-	recipe.save()
+	try {
+		const user = await UserModel.findById({ _id: request.body.userId })
+		user.createdRecipes.push(recipe)
+		recipe.createdByUser = user
+		await recipe.save()
+		const savedRecipe = await user.save()
+		response.status(201).send(savedRecipe)
+	} catch (error) {
+		response.status(500).send({ message: error.message })
+	}
+
+	/* recipe.save()
 		.then(data => { res.send(data) })
-		.catch(err => { res.status(500).send({ message: err.message || "Some error occurred while creating the data." }) })
+		.catch(err => { res.status(500).send({ message: err.message || "Some error occurred while creating the data." }) }) */
 }
 
-const getAllRecipes = (req, res) => {
-	recipeModel.find()
-		.then(recipe => { res.send(recipe) })
-		.catch(err => { res.status(500).send({ message: err.message || "Some error occurred while retrieving data." }) })
+const getAllRecipes = async (request, response) => {
+
+	try {
+		const databaseResponse = await RecipeModel.find().populate('createdByUser')
+		response.status(200).send(databaseResponse)
+	} catch (error) {
+		response.status(500).send({ message: error.message })
+	}
+
+
 }
 
 const findRecipeById = (req, res) => {
-	recipeModel.findById(req.params.recipeId)
+	RecipeModel.findById(req.params.recipeId)
 		.then(recipe => {
 			if (!recipe) { return res.status(404).send({ message: "Recipe not found with id " + req.params.recipeId }) }
 			res.send(recipe)
@@ -39,7 +58,7 @@ const findRecipeById = (req, res) => {
 const updateRecipe = (req, res) => {
 	if (!req.body) { return res.status(400).send({ message: "Recipe content can not be empty" }) }
 
-	recipeModel.findByIdAndUpdate(req.params.recipeId, {
+	RecipeModel.findByIdAndUpdate(req.params.recipeId, {
 		title: req.body.title || "Untitled Recipe",
 		content: req.body.content
 	}, { new: true })
@@ -56,7 +75,7 @@ const updateRecipe = (req, res) => {
 }
 
 const deleteRecipe = (req, res) => {
-	recipeModel.findByIdAndRemove(req.params.recipeId)
+	RecipeModel.findByIdAndRemove(req.params.recipeId)
 		.then(recipe => {
 			if (!recipe) {
 				return res.status(404).send({ message: "Recipe not found with id " + req.params.recipeId })

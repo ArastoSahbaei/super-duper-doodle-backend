@@ -83,7 +83,7 @@ const registerNewUser = async (request, response, next) => {
 const getAllUsers = async (request, response) => {
 	try {
 		const databaseResponse = await UserModel.find()
-			.populate('shoppingCart')
+			.populate('createdRecipes')
 			.populate('newsLetterSubscription')
 		response.status(StatusCode.OK).send(databaseResponse)
 	} catch (error) {

@@ -13,7 +13,7 @@ const userSchema = Schema({
 		type: String,
 		unique: true,
 		allowNull: false,
-		require: true,
+		/* required: true, */
 		lowercase: true,
 		match: [/\S+@\S+\.\S+/, 'is invalid'],
 		index: true,
@@ -38,7 +38,11 @@ const userSchema = Schema({
 		type: mongoose.Schema.Types.ObjectId,
 		ref: 'newslettersubscription',
 		required: true
-	}]
+	}],
+	createdRecipes: [{
+		type: Schema.Types.ObjectId,
+		ref: 'recipe',
+	}],
 }, { timestamps: true, strict: true })
 
 

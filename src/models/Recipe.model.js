@@ -9,10 +9,10 @@ const recipeSchema = Schema({
 	originCountry: String,
 	language: String,
 	views: Number,
-	createdByUser: [{
+	createdByUser: {
 		type: Schema.Types.ObjectId,
 		ref: "user"
-	}]
+	}
 }, {
 	timestamps: true
 })
