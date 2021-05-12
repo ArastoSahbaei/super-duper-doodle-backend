@@ -20,3 +20,8 @@ npm start
 
 ### For Frontend Setup. [Navigate to The Frontend Project](https://github.com/ArastoSahbaei/MondialChef).
 
+<hr>
+
+ <h1 align="center"> :question: How do i contribute to the project? </h1>
+ TBA
+
