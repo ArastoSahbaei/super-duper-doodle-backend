@@ -15,9 +15,7 @@ npm start
 npm install
 npm start
 ```
+
+<hr/>
 ### For Frontend Setup. [Navigate to The Frontend Project](https://github.com/ArastoSahbaei/MondialChef).
 
-
- <hr>
-
- <h1 align="center"> :question: F.A.Q </h1>
