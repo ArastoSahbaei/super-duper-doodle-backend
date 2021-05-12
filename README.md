@@ -16,6 +16,7 @@ npm install
 npm start
 ```
 
-<hr/>
+<hr>
+
 ### For Frontend Setup. [Navigate to The Frontend Project](https://github.com/ArastoSahbaei/MondialChef).
 
