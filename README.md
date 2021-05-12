@@ -16,6 +16,12 @@ npm install
 npm start
 ```
 
+# 4. Install dependencies
+```
+npm install
+npm start
+```
+
 <hr>
 
 ### You will also be required to setup the frontend. For Frontend Setup. 
