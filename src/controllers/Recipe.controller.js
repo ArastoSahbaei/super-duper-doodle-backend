@@ -25,22 +25,15 @@ const createRecipe = async (request, response) => {
 	} catch (error) {
 		response.status(500).send({ message: error.message })
 	}
-
-	/* recipe.save()
-		.then(data => { res.send(data) })
-		.catch(err => { res.status(500).send({ message: err.message || "Some error occurred while creating the data." }) }) */
 }
 
 const getAllRecipes = async (request, response) => {
-
 	try {
 		const databaseResponse = await RecipeModel.find().populate('createdByUser')
 		response.status(200).send(databaseResponse)
 	} catch (error) {
 		response.status(500).send({ message: error.message })
 	}
-
-
 }
 
 const findRecipeById = (req, res) => {
