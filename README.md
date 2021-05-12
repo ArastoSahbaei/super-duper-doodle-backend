@@ -18,7 +18,7 @@ npm start
 
 <hr>
 
-### For Frontend Setup. [Navigate to The Frontend Project](https://github.com/ArastoSahbaei/MondialChef).
+### You will also be required to setup the frontend. For Frontend Setup. [Navigate to The Frontend Project](https://github.com/ArastoSahbaei/MondialChef).
 
 <hr>
 
