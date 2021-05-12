@@ -1,14 +1,21 @@
  <h1 align="center"> :computer: Project Setup(Backend) </h1>
 
-# 1. Install dependencies
+# 1. Clone the project
 ```
 npm install
 npm start
 ```
-# 2. Install dependencies
+# 2. install dependencies
+```
+npm install
+npm start
+```
 # 3. Install dependencies
-### For Frontend Setup. See Below.
-See [The Frontend Project](https://github.com/ArastoSahbaei/MondialChef).
+```
+npm install
+npm start
+```
+### For Frontend Setup. [Navigate to The Frontend Project](https://github.com/ArastoSahbaei/MondialChef).
 
 
  <hr>
