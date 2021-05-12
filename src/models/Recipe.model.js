@@ -1,4 +1,4 @@
-const mongoose = require('mongoose')
+import mongoose from 'mongoose'
 const { Schema } = mongoose
 
 const recipeSchema = Schema({
@@ -17,4 +17,5 @@ const recipeSchema = Schema({
 	timestamps: true
 })
 
-module.exports = mongoose.model('recipe', recipeSchema)
+const RecipeModel = mongoose.model('recipe', recipeSchema)
+export default RecipeModel

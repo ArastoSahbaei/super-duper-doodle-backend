@@ -66,20 +66,12 @@ const registerNewUser = async (request, response, next) => {
 			const user = await UserModel.create({
 				username: request.body.username,
 				password: hashedPassword,
-				name: request.body.name,
-				favouriteProducts: ['1', '2', '3']
-			})
-			const shoppingCart = await new ShoppingCartModel({
-				user: user._id,
-				products: request.body.products
 			})
 			const newsLetterSubscription = await new NewsLetterSubscriptionModel({
 				email: request.body.email,
 				user: user._id,
 				recieveNewsLetters: request.body.recieveNewsLetters
 			})
-			await shoppingCart.save()
-			await user.shoppingCart.push(shoppingCart)
 			await newsLetterSubscription.save()
 			await user.newsLetterSubscription.push(newsLetterSubscription)
 			await user.save()

@@ -1,6 +1,6 @@
-const recipeModel = require('../models/Recipe.model.js')
+import recipeModel from '../models/Recipe.model.js'
 
-exports.create = (req, res) => {
+const createRecipe = (req, res) => {
 	if (!req.body.title) { return res.status(400).send({ message: "Recipe title is required" }) }
 
 	const recipe = new recipeModel({
@@ -18,13 +18,13 @@ exports.create = (req, res) => {
 		.catch(err => { res.status(500).send({ message: err.message || "Some error occurred while creating the data." }) })
 }
 
-exports.findAll = (req, res) => {
+const getAllRecipes = (req, res) => {
 	recipeModel.find()
 		.then(recipe => { res.send(recipe) })
 		.catch(err => { res.status(500).send({ message: err.message || "Some error occurred while retrieving data." }) })
 }
 
-exports.findOne = (req, res) => {
+const findRecipeById = (req, res) => {
 	recipeModel.findById(req.params.recipeId)
 		.then(recipe => {
 			if (!recipe) { return res.status(404).send({ message: "Recipe not found with id " + req.params.recipeId }) }
@@ -36,7 +36,7 @@ exports.findOne = (req, res) => {
 		})
 }
 
-exports.update = (req, res) => {
+const updateRecipe = (req, res) => {
 	if (!req.body) { return res.status(400).send({ message: "Recipe content can not be empty" }) }
 
 	recipeModel.findByIdAndUpdate(req.params.recipeId, {
@@ -55,7 +55,7 @@ exports.update = (req, res) => {
 		})
 }
 
-exports.delete = (req, res) => {
+const deleteRecipe = (req, res) => {
 	recipeModel.findByIdAndRemove(req.params.recipeId)
 		.then(recipe => {
 			if (!recipe) {
@@ -69,4 +69,12 @@ exports.delete = (req, res) => {
 			}
 			return res.status(500).send({ message: "Could not delete Recipe with id " + req.params.recipeId })
 		})
+}
+
+export default {
+	createRecipe,
+	getAllRecipes,
+	updateRecipe,
+	findRecipeById,
+	deleteRecipe
 }

@@ -7,6 +7,7 @@ import passport from 'passport'
 import Configuration from './configurations/Configurations.js'
 import Middlewares from './src/middlewares/Middlewares.js'
 import UserRoutes from './src/routes/User.routes.js'
+import RecipeRoutes from './src/routes/Recipe.routes.js'
 import NewsLetterSubscriptionRoutes from './src/routes/NewsLetterSubscription.routes.js'
 import passportConfig from './configurations/passport-config.js'
 
@@ -21,6 +22,7 @@ passportConfig.registerUserini()
 passportConfig.login()
 
 UserRoutes.routes(application)
+RecipeRoutes.routes(application)
 NewsLetterSubscriptionRoutes.routes(application)
 
 application.use(Middlewares.notFound)
