@@ -36,51 +36,55 @@ const getAllRecipes = async (request, response) => {
 	}
 }
 
-const findRecipeById = (req, res) => {
-	RecipeModel.findById(req.params.recipeId)
+const findRecipeById = (request, response) => {
+	RecipeModel.findById(request.params.recipeId)
 		.then(recipe => {
-			if (!recipe) { return res.status(404).send({ message: "Recipe not found with id " + req.params.recipeId }) }
-			res.send(recipe)
+			if (!recipe) { return response.status(404).send({ message: "Recipe not found with id " + request.params.recipeId }) }
+			response.send(recipe)
 		})
 		.catch(err => {
-			if (err.kind === 'ObjectId') { return res.status(404).send({ message: "Recipe not found with id " + req.params.recipeId }) }
-			return res.status(500).send({ message: "Error retrieving Recipe with id " + req.params.recipeId })
+			if (err.kind === 'ObjectId') { return response.status(404).send({ message: "Recipe not found with id " + request.params.recipeId }) }
+			return response.status(500).send({ message: "Error retrieving Recipe with id " + request.params.recipeId })
 		})
 }
 
-const updateRecipe = (req, res) => {
-	if (!req.body) { return res.status(400).send({ message: "Recipe content can not be empty" }) }
+const updateRecipe = (request, response) => {
+	if (!request.body) { return response.status(400).send({ message: "Recipe content can not be empty" }) }
 
-	RecipeModel.findByIdAndUpdate(req.params.recipeId, {
-		title: req.body.title || "Untitled Recipe",
-		content: req.body.content
+	RecipeModel.findByIdAndUpdate(request.params.recipeId, {
+		title: request.body.title || "Untitled Recipe",
+		content: request.body.content
 	}, { new: true })
 		.then(recipe => {
-			if (!recipe) { return res.status(404).send({ message: "Recipe not found with id " + req.params.recipeId }) }
-			res.send(recipe)
+			if (!recipe) { return response.status(404).send({ message: "Recipe not found with id " + request.params.recipeId }) }
+			response.send(recipe)
 		})
 		.catch(err => {
 			if (err.kind === 'ObjectId') {
-				return res.status(404).send({ message: "Recipe not found with id " + req.params.recipeId })
+				return response.status(404).send({ message: "Recipe not found with id " + request.params.recipeId })
 			}
-			return res.status(500).send({ message: "Error updating Recipe with id " + req.params.recipeId })
+			return response.status(500).send({ message: "Error updating Recipe with id " + request.params.recipeId })
 		})
 }
 
-const deleteRecipe = (req, res) => {
-	RecipeModel.findByIdAndRemove(req.params.recipeId)
+const deleteRecipe = (request, response) => {
+	RecipeModel.findByIdAndRemove(request.params.recipeId)
 		.then(recipe => {
 			if (!recipe) {
-				return res.status(404).send({ message: "Recipe not found with id " + req.params.recipeId })
+				return response.status(404).send({ message: "Recipe not found with id " + request.params.recipeId })
 			}
-			res.send({ message: "Recipe deleted successfully!" })
+			response.send({ message: "Recipe deleted successfully!" })
 		})
 		.catch(err => {
 			if (err.kind === 'ObjectId' || err.name === 'NotFound') {
-				return res.status(404).send({ message: "Recipe not found with id " + req.params.recipeId })
+				return response.status(404).send({ message: "Recipe not found with id " + request.params.recipeId })
 			}
-			return res.status(500).send({ message: "Could not delete Recipe with id " + req.params.recipeId })
+			return response.status(500).send({ message: "Could not delete Recipe with id " + request.params.recipeId })
 		})
+}
+
+const searchRecipe = (request, response) => {
+
 }
 
 export default {
