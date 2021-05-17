@@ -83,8 +83,6 @@ const registerNewUser = async (request, response, next) => {
 const getAllUsers = async (request, response) => {
 	try {
 		const databaseResponse = await UserModel.find()
-			.populate('createdRecipes')
-			.populate('newsLetterSubscription')
 		response.status(StatusCode.OK).send(databaseResponse)
 	} catch (error) {
 		response.status(StatusCode.INTERNAL_SERVER_ERROR).send({ message: error.message })
@@ -94,9 +92,7 @@ const getAllUsers = async (request, response) => {
 const getUserByID = async (request, response) => {
 	try {
 		const databaseResponse = await (await UserModel.findOne({ _id: request.params.userId })
-			.populate('newsLetterSubscription')
-			.populate('favouriteProducts')
-			.populate({ path: 'shoppingCart', populate: { path: 'products' } }))
+			.populate('createdRecipes'))
 		response.status(StatusCode.OK).send(databaseResponse)
 	} catch (error) {
 		response.status(StatusCode.INTERNAL_SERVER_ERROR).send({
