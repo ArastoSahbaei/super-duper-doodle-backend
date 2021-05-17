@@ -1,3 +1,4 @@
+import StatusCode from '../../configurations/StatusCode.js'
 import RecipeModel from '../models/Recipe.model.js'
 import UserModel from '../models/User.model.js'
 
@@ -83,8 +84,17 @@ const deleteRecipe = (request, response) => {
 		})
 }
 
-const searchRecipe = (request, response) => {
-
+const searchRecipe = async (request, response) => {
+	try {
+		const databaseResponse = await RecipeModel.find(
+			{ "title": { "$regex": `${request.query.title}`, "$options": "i" } }
+		)
+		databaseResponse.length !== 0
+			? response.status(StatusCode.OK).send(databaseResponse)
+			: response.status(StatusCode.NOT_FOUND).send({ message: 'no recipes found' })
+	} catch (error) {
+		return response.status(500).send({ message: "Could not delete Recipe with id " + request.params.recipeId })
+	}
 }
 
 export default {
@@ -92,5 +102,6 @@ export default {
 	getAllRecipes,
 	updateRecipe,
 	findRecipeById,
-	deleteRecipe
+	deleteRecipe,
+	searchRecipe
 }

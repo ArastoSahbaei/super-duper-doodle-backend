@@ -6,6 +6,7 @@ const routes = application => {
 	application.get('/recipe/:recipeId', recipeController.findRecipeById)
 	application.put('/recipe/:recipeId', recipeController.updateRecipe)
 	application.delete('/recipe/:recipeId', recipeController.deleteRecipe)
+	application.get('/search/recipe', recipeController.searchRecipe)
 }
 
 export default { routes }
