@@ -46,6 +46,7 @@ const login = async (request, response, next) => {
 							authenticated: true,
 							token,
 							username: user.username,
+							name: user.name,
 							id: user._id,
 							newsLetterSubscription: user.newsLetterSubscription,
 							favouriteProducts: user.favouriteProducts,
@@ -68,6 +69,7 @@ const registerNewUser = async (request, response, next) => {
 			const user = await UserModel.create({
 				username: request.body.username,
 				password: hashedPassword,
+				name: request.body.name
 			})
 			const newsLetterSubscription = await new NewsLetterSubscriptionModel({
 				email: request.body.email,
