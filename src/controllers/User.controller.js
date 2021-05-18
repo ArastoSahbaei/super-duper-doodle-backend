@@ -37,6 +37,7 @@ const login = async (request, response, next) => {
 				UserModel.findOne({ username: request.body.username })
 					.populate('newsLetterSubscription')
 					.populate('favouriteProducts')
+					.populate('createdRecipes')
 					.populate({ path: 'shoppingCart', populate: { path: 'products' } })
 					.then(user => {
 						const token = jwt.sign({ id: user._id }, 'jwtSecret.secret', { expiresIn: 60 * 60 })
@@ -47,7 +48,8 @@ const login = async (request, response, next) => {
 							username: user.username,
 							id: user._id,
 							newsLetterSubscription: user.newsLetterSubscription,
-							favouriteProducts: user.favouriteProducts
+							favouriteProducts: user.favouriteProducts,
+							createdRecipes: user.createdRecipes
 						})
 					})
 			})
