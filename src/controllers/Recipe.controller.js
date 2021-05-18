@@ -3,6 +3,9 @@ import RecipeModel from '../models/Recipe.model.js'
 import UserModel from '../models/User.model.js'
 
 const createRecipe = async (request, response) => {
+
+	console.log(request.body)
+
 	if (!request.body.title) { return response.status(400).send({ message: "Recipe title is required" }) }
 
 	const recipe = new RecipeModel({
@@ -30,7 +33,7 @@ const createRecipe = async (request, response) => {
 
 const getAllRecipes = async (request, response) => {
 	try {
-		const databaseResponse = await RecipeModel.find().populate('createdByUser')
+		const databaseResponse = await RecipeModel.find()
 		response.status(200).send(databaseResponse)
 	} catch (error) {
 		response.status(500).send({ message: error.message })
