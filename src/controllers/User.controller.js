@@ -183,6 +183,21 @@ const updatePassword = (request, response) => {
 	})(request, response, next)
 }
 
+const updateFavouriteRecipes = async (request, response) => {
+	try {
+		if (!request.body) { return response.status(StatusCode.BAD_REQUEST).send({ message: 'Empty values were sent' }) }
+		const databaseResponse = await UserModel.findByIdAndUpdate(request.body.userId, {
+			favouriteRecipes: request.body.favouriteRecipes,
+		}, { new: true }).populate('favouriteRecipes')
+		response.status(StatusCode.OK).send(databaseResponse.favouriteRecipes)
+	} catch (error) {
+		response.status(StatusCode.INTERNAL_SERVER_ERROR).send({
+			message: 'Error occured while trying to update values of the user with ID: ' + request.body.userId,
+			error: error.message
+		})
+	}
+}
+
 const forgotPassword = async (request, response) => {
 	if (request.body.email === '') {
 		response.status(StatusCode.BAD_REQUEST).send('email required')
@@ -244,4 +259,5 @@ export default {
 	updatePassword,
 	forgotPassword,
 	resetPassword,
+	updateFavouriteRecipes
 }

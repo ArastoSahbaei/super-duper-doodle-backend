@@ -12,7 +12,10 @@ const recipeSchema = Schema({
 	createdByUser: {
 		type: Schema.Types.ObjectId,
 		ref: "user"
-	}
+	},
+	inFavouriteByUsers: [{
+		//TODO: Display which users have the recipe in their favourite list
+	}]
 }, {
 	timestamps: true
 })

@@ -43,6 +43,10 @@ const userSchema = Schema({
 		type: Schema.Types.ObjectId,
 		ref: 'recipe',
 	}],
+	favouriteRecipes: [{
+		type: mongoose.Schema.Types.ObjectId,
+		ref: 'recipe',
+	}]
 }, { timestamps: true, strict: true })
 
 
