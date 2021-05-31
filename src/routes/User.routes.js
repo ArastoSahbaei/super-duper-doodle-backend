@@ -3,9 +3,7 @@ import Middlewares from '../middlewares/Middlewares.js'
 import multer from 'multer'
 
 const upload = multer({
-	dest: (req, file, cb) => {
-		cb(null, "uploads/")
-	},
+	dest: "configurations/uploads/",
 	filename: function (req, file, cb) {
 		cb(null, file.fieldname + '-' + Date.now())
 	}
