@@ -31,9 +31,3 @@ const routes = application => {
 }
 
 export default { routes }
-/* const upload = multer({
-	dest: "configurations/uploads/",
-	filename: function (req, file, cb) {
-		cb(null, file.fieldname + '-' + Date.now())
-	}
-}).single('files') */
