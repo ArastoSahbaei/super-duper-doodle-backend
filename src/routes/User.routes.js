@@ -1,4 +1,5 @@
 import UserController from '../controllers/User.controller.js'
+import FileUploadController from '../controllers/FileUpload.controller.js'
 import Middlewares from '../middlewares/Middlewares.js'
 import multer from 'multer'
 
@@ -11,7 +12,7 @@ const fileStorageEngine = multer.diskStorage({
 	}
 })
 
-const upload = multer({ storage: fileStorageEngine }).single('files')
+const upload = multer({ storage: fileStorageEngine })
 
 const routes = application => {
 	application.get('/authtest', Middlewares.checkToken, UserController.testingAuthenticatedRoute)
@@ -26,7 +27,8 @@ const routes = application => {
 	application.put('/updatepassword', UserController.updatePassword)
 	application.put('/resetpassword', UserController.resetPassword)
 	application.put('/favouriterecipes', UserController.updateFavouriteRecipes)
-	application.post('/user/updateAvatar', upload, UserController.uploadFile);
+	application.post('/user/updateAvatar', upload.single('files'), FileUploadController.uploadSingleFile);
+	application.post('/multiple', upload.array('files'), FileUploadController.multipleFileUpload)
 
 }
 

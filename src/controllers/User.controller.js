@@ -217,10 +217,29 @@ const forgotPassword = async (request, response) => {
 	}
 }
 
-const uploadFile = (request, response) => {
-	console.log(request.body);
-	console.log("YOOO: ", request.files);
-	response.json({ message: "Successfully uploaded files" });
+const uploadFile = async (request, response) => {
+	try {
+		const file = {
+			fileName: request.file.originalname,
+			filePath: request.file.path,
+			fileType: request.file.mimetype,
+			fileSize: fileSizeFormatter(request.file.size, 2)
+		}
+		console.log(request.file)
+		response.json({ message: "Successfully uploaded files" });
+	} catch (error) {
+		console.log(error)
+	}
+}
+
+const fileSizeFormatter = (bytes, decimal) => {
+	if (bytes === 0) {
+		return '0 bytes'
+	}
+	const dm = decimal || 2
+	const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'YB', 'ZB']
+	const index = Math.floor(Math.log(bytes) / Math.log(1000))
+	return parseFloat((bytes / Math.pow(1000, index)).toFixed(dm)) + '-' + sizes[index]
 }
 
 const resetPassword = async (request, response) => {
