@@ -2,12 +2,16 @@ import UserController from '../controllers/User.controller.js'
 import Middlewares from '../middlewares/Middlewares.js'
 import multer from 'multer'
 
-const upload = multer({
-	dest: "configurations/uploads/",
-	filename: function (req, file, cb) {
-		cb(null, file.fieldname + '-' + Date.now())
+const fileStorageEngine = multer.diskStorage({
+	destination: (req, file, cb) => {
+		cb(null, "configurations/uploads/")
+	},
+	filename: (req, file, cb) => {
+		cb(null, file.originalname)
 	}
-}).single('files')
+})
+
+const upload = multer({ storage: fileStorageEngine }).single('files')
 
 const routes = application => {
 	application.get('/authtest', Middlewares.checkToken, UserController.testingAuthenticatedRoute)
@@ -27,3 +31,9 @@ const routes = application => {
 }
 
 export default { routes }
+/* const upload = multer({
+	dest: "configurations/uploads/",
+	filename: function (req, file, cb) {
+		cb(null, file.fieldname + '-' + Date.now())
+	}
+}).single('files') */

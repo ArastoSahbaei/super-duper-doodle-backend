@@ -8,8 +8,6 @@ import dotenv from 'dotenv'
 import Configurations from '../../configurations/Configurations.js'
 import NewsLetterSubscriptionModel from '../models/NewsLetterSubscription.model.js'
 import multer from 'multer'
-import path from 'path'
-import { STATUS_CODES } from 'http'
 
 dotenv.config()
 
@@ -219,11 +217,10 @@ const forgotPassword = async (request, response) => {
 	}
 }
 
-
-function uploadFile(req, res) {
-	console.log(req.body);
-	console.log(req.files);
-	res.json({ message: "Successfully uploaded files" });
+const uploadFile = (request, response) => {
+	console.log(request.body);
+	console.log("YOOO: ", request.files);
+	response.json({ message: "Successfully uploaded files" });
 }
 
 const resetPassword = async (request, response) => {
